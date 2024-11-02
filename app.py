@@ -20,6 +20,12 @@ load_dotenv()
 # you can use only this load_dotenv()
 hf_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 groq_api_key = os.getenv("GROQ_API_KEY")
+
+if  hf_token is None:
+    print('please add hugging face token to env') 
+if  groq_api_key is None:
+    print('please add gropq api key to env') 
+
 # os.environ["HUGGINGFACEHUB_API_TOKEN"] = hf_token
 # os.environ["GROQ_API_KEY"] = groq_api_key
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"  # Disable certain TensorFlow optimizations
@@ -83,7 +89,7 @@ def vector_embedding():
         )
 
         # Check if the FAISS index file exists
-        vector_store_path = "./faiss_vector_store"
+        vector_store_path = "/workspaces/Rag_ht/data/embeddings"
 
         if os.path.exists(vector_store_path):
             # Load FAISS from disk
