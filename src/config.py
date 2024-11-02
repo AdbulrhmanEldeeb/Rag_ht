@@ -30,6 +30,7 @@ class Config:
         """
         Creates necessary directories if they don't exist.
         """
+        # create dirs , exit_ok is used to not make an error if the dirs exists 
         os.makedirs(Config.DATA_DIR, exist_ok=True)
         os.makedirs(Config.PDF_DIR, exist_ok=True)
         os.makedirs(Config.EMBEDDINGS_DIR, exist_ok=True)

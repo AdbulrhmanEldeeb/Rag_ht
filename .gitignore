@@ -96,6 +96,10 @@ ehthumbs.db
 Desktop.ini
 
 
+.env
+Dockerfile
+aws_keys.txt
+
 # MyPy
 .mypy_cache/
 dmypy.json

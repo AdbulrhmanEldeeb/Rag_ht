@@ -22,6 +22,6 @@ ENTRYPOINT ["streamlit", "run", "app.py"]
 ENV GROQ_API_KEY='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'
 ENV HF_TOKEN='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'
 # Set default command-line arguments for the ENTRYPOINT
-CMD ["--server.port", "8080"]
+CMD ["--server.port=8080", "--server.address=0.0.0.0"]
 
 
