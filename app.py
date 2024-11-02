@@ -20,8 +20,8 @@ load_dotenv()
 # you can use only this load_dotenv()
 hf_token = os.getenv("HF_TOKEN")
 groq_api_key = os.getenv("GROQ_API_KEY")
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = hf_token
-os.environ["GROQ_API_KEY"] = groq_api_key
+# os.environ["HUGGINGFACEHUB_API_TOKEN"] = hf_token
+# os.environ["GROQ_API_KEY"] = groq_api_key
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"  # Disable certain TensorFlow optimizations
  
 # Set up the Streamlit page configuration with a custom logo and title
