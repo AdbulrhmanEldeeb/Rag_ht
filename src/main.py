@@ -10,7 +10,7 @@ from langchain.chains import create_retrieval_chain
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from dotenv import load_dotenv
-
+from config import Config
 # from langchain.memory import ConversationBufferMemory
 
 # memory = ConversationBufferMemory(input_key="input", output_key="answer", memory_key="history")  # Initialize memory
@@ -64,12 +64,13 @@ st.sidebar.markdown(
 
 
 # Initialize the language model (LLM) using the Groq API with Llama3.1
-llm = ChatGroq(groq_api_key=groq_api_key, model_name="llama-3.1-70b-versatile")
+llm = ChatGroq(groq_api_key=groq_api_key, model_name=Config.LANGUAGE_MODEL_NAME)
 
 # Define the prompt template for question answering
 prompt = ChatPromptTemplate.from_template(
     """
-Answer the questions based on the provided context.If the provided context does not include the answer, provide an answer based on your knowledge.
+Answer the questions based on the provided context.If the provided context does not include the answer, \
+provide an answer based on your knowledge.
 {context}
 <context>
 Questions: {input}
@@ -85,11 +86,11 @@ def vector_embedding():
 
         # Initialize Hugging Face embeddings (pre-trained model)
         st.session_state.embeddings = HuggingFaceEmbeddings(
-            model_name="sentence-transformers/all-MiniLM-L6-v2"
+            model_name=Config.EMBEDDING_MODEL_NAME
         )
 
         # Check if the FAISS index file exists
-        vector_store_path = "/workspaces/Rag_ht/data/embeddings"
+        vector_store_path = Config.EMBEDDINGS_DIR
 
         if os.path.exists(vector_store_path):
             # Load FAISS from disk
@@ -101,13 +102,13 @@ def vector_embedding():
             st.write("Loaded vector store from disk.")
 
         else:
-            # Load all PDFs from the "./data" folder
-            st.session_state.loader = PyPDFDirectoryLoader("./data")
+            # Load all PDFs from the "/workspaces/Rag_ht/data/pdfs" folder
+            st.session_state.loader = PyPDFDirectoryLoader(Config.PDF_DIR)
             st.session_state.docs = st.session_state.loader.load()
 
             # Split the loaded documents into chunks
             st.session_state.text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=1000, chunk_overlap=200
+                chunk_size=Config.CHUNK_SIZE, chunk_overlap=Config.CHUNK_OVERLAB
             )
             st.session_state.final_documents = (
                 st.session_state.text_splitter.split_documents(st.session_state.docs)
