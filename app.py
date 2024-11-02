@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 # Load environment variables (API keys, tokens, etc.)
 load_dotenv()
 # you can use only this load_dotenv()
-hf_token = os.getenv("HF_TOKEN")
+hf_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 groq_api_key = os.getenv("GROQ_API_KEY")
 # os.environ["HUGGINGFACEHUB_API_TOKEN"] = hf_token
 # os.environ["GROQ_API_KEY"] = groq_api_key
