@@ -32,7 +32,11 @@ os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"  # Disable certain TensorFlow optimiza
  
 # Set up the Streamlit page configuration with a custom logo and title
 my_logo = "/workspaces/Rag_ht/app_data/icon.png"
-st.set_page_config(page_icon=my_logo, page_title="Heat Treatment Chatbot")
+if os.path.exists(my_logo):
+    st.set_page_config(page_icon=my_logo, page_title="Heat Treatment Chatbot")
+else : 
+    my_logo = r"app_data\icon.png"
+    st.set_page_config(page_icon=my_logo, page_title="Heat Treatment Chatbot")
 
 # Set the app title and sidebar
 st.title("Heat Treatment Chatbot")
