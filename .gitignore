@@ -101,7 +101,7 @@ Desktop.ini
 .env
 Dockerfile
 aws_keys.txt
-[Dd]ockerfile
+![Dd]ockerfile
 aws/
 awscliv2.zip
 
