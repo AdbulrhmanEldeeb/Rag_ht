@@ -24,7 +24,7 @@ os.environ["GROQ_API_KEY"] = groq_api_key
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"  # Disable certain TensorFlow optimizations
  
 # Set up the Streamlit page configuration with a custom logo and title
-my_logo = "/workspaces/Llama3.1-rag-pdf-chat/app_data/my_logo_2.png"
+my_logo = "/workspaces/Rag_ht/app_data/icon.png"
 st.set_page_config(page_icon=my_logo, page_title="Heat Treatment Chatbot")
 
 # Set the app title and sidebar
