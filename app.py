@@ -44,7 +44,13 @@ st.sidebar.markdown(
     Example of Questions to ask chatbot:
 
     ```
-    describe Black-heart process for Malleable iron production?
+    describe Black-heart process for Malleable iron production.
+    ```
+    ```
+    How do elements like magnesium or boron affect graphite morphology in cast iron?
+    ```
+    ```
+    what are properties of Iron Carbide Phase?
     ```
     """
 )
