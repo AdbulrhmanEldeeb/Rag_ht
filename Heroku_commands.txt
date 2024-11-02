@@ -1,0 +1,5 @@
+sudo apt update
+
+sudo apt install curl -y
+
+export HEROKU_API_KEY=HRKU-16954fd8-af14-4364-a6f0-e63d33c42821 
