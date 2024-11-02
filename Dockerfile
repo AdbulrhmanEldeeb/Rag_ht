@@ -1,11 +1,13 @@
 # Use a slim version of Python 3.12 as the base image
-FROM python:3.12.1-slim
+FROM python:3.12-slim AS builder
 
 WORKDIR /app
 COPY requirements.txt . 
 RUN pip install --no-cache-dir -r requirements.txt && pip show streamlit
 
-
+FROM python:3.12-slim
+WORKDIR /app
+COPY --from=builder /app /app
 COPY . .
 
 # Expose port 8080 for the application

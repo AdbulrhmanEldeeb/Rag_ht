@@ -51,7 +51,7 @@ jobs:
       - name: Run Black
         run: |
           pip install black
-          black app.py  
+          black .  
 
   # Optionally, you can add a test job if you have tests
   # test:
