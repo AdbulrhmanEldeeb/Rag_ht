@@ -95,10 +95,6 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Environment variables and secrets
-.env
-.env.*
-*.env
 
 # MyPy
 .mypy_cache/
