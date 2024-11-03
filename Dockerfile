@@ -1,3 +1,6 @@
+### attention : this docker file is optimized for build time and pull time 
+### this is called multi-stage build to optimize the build time and the final image size. 
+
 # Use a slim version of Python 3.12 as the base image
 FROM python:3.12-slim AS builder
 
@@ -17,8 +20,10 @@ EXPOSE 8080
 ENV GROQ_API_KEY='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'
 ENV HUGGINGFACEHUB_API_TOKEN='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'
 
+RUN dir
+
 # Specify the command to run the application
-ENTRYPOINT ["streamlit", "run", "src/main.py"]
+ENTRYPOINT ["streamlit", "run", "/app/src/main.py"]
 
 # Set default command-line arguments for the ENTRYPOINT
 CMD ["--server.port=8080", "--server.address=0.0.0.0"]
