@@ -1,3 +1,7 @@
+ $env:GROQ_API_KEY="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"
+>> $env:HUGGINGFACEHUB_API_TOKEN="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"
+>> streamlit run main.py --server.port=8080 
+
 Q: what are properties of Iron Carbide Phase?
 A: 
 Fe3C is the chemical composition, and it has

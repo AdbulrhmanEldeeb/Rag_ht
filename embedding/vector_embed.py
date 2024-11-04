@@ -1,67 +1,77 @@
-from langchain_community.vectorstores import FAISS
-from langchain_community.document_loaders import PyPDFDirectoryLoader
-import streamlit as st 
-import time 
-from langchain_community.embeddings import HuggingFaceEmbeddings
+import os
+import time
+import streamlit as st
+from configuration import Config
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.vectorstores import FAISS
+from langchain.document_loaders import PyPDFDirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from config import Config 
-import os 
 
+class Embed:
+    def __init__(self):
+        # Initialize instance attributes for embeddings and vectors
+        self.vector_store_path = Config.EMBEDDINGS_DIR
+        self.pdf_dir = Config.PDF_DIR
+        self.chunk_size = Config.CHUNK_SIZE
+        self.chunk_overlap = Config.CHUNK_OVERLAB
+        self.model_name = Config.EMBEDDING_MODEL_NAME
+        self.vectors = None
+        self.embeddings = None
+        self.loader = None
+        self.text_splitter = None
+        self.final_documents = None
 
-# Function to handle vector embedding of documents
+    def load_embeddings(self):
+        """Initialize Hugging Face embeddings using the pre-trained model name."""
+        self.embeddings = HuggingFaceEmbeddings(model_name=self.model_name)
+        st.session_state.embeddings = self.embeddings
 
+    def load_faiss_from_disk(self):
+        """Load FAISS index from local storage if available."""
+        self.vectors = FAISS.load_local(
+            self.vector_store_path,
+            self.embeddings,
+            allow_dangerous_deserialization=True
+        )
+        st.session_state.vectors = self.vectors
+        st.write("Loaded vector store from disk.")
 
+    def create_faiss_from_documents(self):
+        """Load documents, split them, create embeddings, and save FAISS index."""
+        # Load PDFs and split documents
+        self.loader = PyPDFDirectoryLoader(self.pdf_dir)
+        docs = self.loader.load()
 
-class Embed: 
-    def __init__(self) -> None:
-         pass
-
+        self.text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=self.chunk_size, chunk_overlap=self.chunk_overlap
+        )
+        self.final_documents = self.text_splitter.split_documents(docs)
+        
+        # Generate vector embeddings and save them
+        self.vectors = FAISS.from_documents(self.final_documents, self.embeddings)
+        self.vectors.save_local(self.vector_store_path)
+        st.session_state.vectors = self.vectors
+        st.write("Vector store saved to disk.")
 
     def vector_embedding(self):
-        # Check if vectors are already stored in session state
+        """Process documents and create vector embeddings if not in session state."""
         if "vectors" not in st.session_state:
-            start = time.time()  # Track start time
+            start = time.time()  # Start time for processing
 
-            # Initialize Hugging Face embeddings (pre-trained model)
-            st.session_state.embeddings = HuggingFaceEmbeddings(
-                model_name=Config.EMBEDDING_MODEL_NAME
-            )
+            # Initialize embeddings if not already loaded
+            if not self.embeddings:
+                self.load_embeddings()
 
-            # Check if the FAISS index file exists
-            vector_store_path = Config.EMBEDDINGS_DIR
-
-            if os.path.exists(vector_store_path):
-                # Load FAISS from disk
-                st.session_state.vectors = FAISS.load_local(
-                    vector_store_path,
-                    st.session_state.embeddings,
-                    allow_dangerous_deserialization=True,
-                )
-                st.write("Loaded vector store from disk.")
-
+            # Check if vector store exists on disk, load or create as needed
+            if os.path.exists(self.vector_store_path):
+                self.load_faiss_from_disk()
             else:
-                # Load all PDFs from the "/workspaces/Rag_ht/data/pdfs" folder
-                st.session_state.loader = PyPDFDirectoryLoader(Config.PDF_DIR)
-                st.session_state.docs = st.session_state.loader.load()
+                self.create_faiss_from_documents()
 
-                # Split the loaded documents into chunks
-                st.session_state.text_splitter = RecursiveCharacterTextSplitter(
-                    chunk_size=Config.CHUNK_SIZE, chunk_overlap=Config.CHUNK_OVERLAB
-                )
-                st.session_state.final_documents = (
-                    st.session_state.text_splitter.split_documents(st.session_state.docs)
-                )
-
-                # Create vector embeddings for the split documents
-                st.session_state.vectors = FAISS.from_documents(
-                    st.session_state.final_documents, st.session_state.embeddings
-                )
-
-                # Save FAISS index to disk
-                st.session_state.vectors.save_local(vector_store_path)
-                st.write("Vector store saved to disk.")
-
-            # Display the total processing time
-            end = time.time()
-            total_time = end - start
+            # Display total processing time
+            total_time = time.time() - start
             st.write(f"Total time to process documents: {round(total_time/60, 2)} minutes.")
+
+# Usage
+# embedder = Embed()
+# embedder.vector_embedding()
