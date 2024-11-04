@@ -39,7 +39,9 @@ class Embed:
     def create_faiss_from_documents(self):
         """Load documents, split them, create embeddings, and save FAISS index."""
         # Load PDFs and split documents
+        start=time.time()
         self.loader = PyPDFDirectoryLoader(self.pdf_dir)
+        print("creating embeddings from documents started, please wait...")
         docs = self.loader.load()
 
         self.text_splitter = RecursiveCharacterTextSplitter(
@@ -50,9 +52,9 @@ class Embed:
         # Generate vector embeddings and save them
         self.vectors = FAISS.from_documents(self.final_documents, self.embeddings)
         self.vectors.save_local(self.vector_store_path)
-        st.session_state.vectors = self.vectors
-        st.write("Vector store saved to disk.")
-
+        end=time.time()
+        total_time=end-start
+        print(f"Created Embeddings successfully and directory data/embeddings updated. Total time:{total_time//60} minutes")
     def vector_embedding(self):
         """Process documents and create vector embeddings if not in session state."""
         if "vectors" not in st.session_state:
