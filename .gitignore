@@ -97,8 +97,8 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-
-!.env
+env 
+.env
 Dockerfile
 aws_keys.txt
 ![Dd]ockerfile
