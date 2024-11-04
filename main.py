@@ -8,16 +8,21 @@ from chat import Chain
 # Load environment variables (API keys, tokens, etc.)
 load_dotenv()
 # you can use only this load_dotenv()
-hf_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
-groq_api_key = os.getenv("GROQ_API_KEY")
+HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-if  hf_token is None:
-    print('please add hugging face token to env') 
-if  groq_api_key is None:
-    print('please add gropq api key to env') 
+if  HUGGINGFACEHUB_API_TOKEN is None:
+    HUGGINGFACEHUB_API_TOKEN=st.secrets["HUGGINGFACEHUB_API_TOKEN"]
+    if HUGGINGFACEHUB_API_TOKEN is None :
+        print('please add hugging face token to env') 
+if  GROQ_API_KEY is None:
+    GROQ_API_KEY=st.secrets["GROQ_API_KEY"]
+    if GROQ_API_KEY is None : 
 
-# os.environ["HUGGINGFACEHUB_API_TOKEN"] = hf_token
-# os.environ["GROQ_API_KEY"] = groq_api_key
+        print('please add gropq api key to env') 
+
+# os.environ["HUGGINGFACEHUB_API_TOKEN"] = HUGGINGFACEHUB_API_TOKEN
+# os.environ["GROQ_API_KEY"] = GROQ_API_KEY
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"  # Disable certain TensorFlow optimizations
  
 # Set up the Streamlit page configuration with a custom logo and title
