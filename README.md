@@ -2,7 +2,7 @@
 ## Overview
 This project implements a Retrieval-Augmented Generation (RAG) application that allows users to query and retrieve information from large PDF documents. Powered by Llama 3.1 and Groq API, the system processes the documents, creates vector embeddings for efficient retrieval, and provides intelligent responses based on user queries.
 
-The app supports various languages.
+The app supports various languages.Click [here](https://adbulrhmaneldeeb-ht-rag.streamlit.app/) to test the app.
 
 ## Key Features
 - PDF Document Loading: Ingest and process PDF files placed in a local folder.
@@ -20,7 +20,7 @@ The app supports various languages.
 ## Prerequisites
 Before running the project, ensure you have the following installed:
 
-- Python 3.x
+- Python 3.12
 - Required Python libraries (listed in requirements.txt)
 - Groq API key
 - Hugging Face API token
@@ -43,17 +43,17 @@ You need to set up the following environment variables in a .env file:
 
 3.Set up environment variables: Create a .env file in the root directory and add your API tokens:
     
-    hf_token=YOUR_HUGGINGFACE_API_TOKEN
-    groq_api_key=YOUR_GROQ_API_KEY
+    HUGGINGFACEHUB_API_TOKEN=YOUR_HUGGINGFACE_API_TOKEN
+    GROQ_API_KEY=YOUR_GROQ_API_KEY
 
 4.Prepare your PDF documents: Place the PDF files you want to query inside the data folder.
 
 ## Usage 
 Run the Streamlit app:
 
-    streamlit run app.py
+    streamlit run app.py --server.port=8080
 
-Access the web interface: Open your web browser and go to http://localhost:8501.
+Access the web interface: Open your web browser and go to http://localhost:8080.
 
 Interact with the App:
 
