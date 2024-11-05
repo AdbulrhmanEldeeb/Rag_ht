@@ -26,7 +26,10 @@ class StreamlitConfig(Enum):
     what are properties of Iron Carbide Phase?
     ```
     """
-    
+    INPUT_PROMPT_TITLE="Add your question here and press enter"
+    INFO_PROCESS_DOCUMENTS="Your documents are being processed, please wait a second...⌛"
+    INFO_READY="Vector Store DB is ready. Ask any question from your documents."
+    RETRIVING_ANSWER="Retriving answer from documents "    
 class Prompts(Enum):
     MAIN_PROMPT = """
     Answer the questions based on the provided context. If the provided context does not include the answer, \

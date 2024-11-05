@@ -15,15 +15,15 @@ class Config:
     # Embedding and retrieval settings
     CHUNK_SIZE = 1000  # Dimension of embeddings (depends on model)
     CHUNK_OVERLAB = 200  # Batch size for embedding creation
-    VECTOR_STORE_TYPE = 'faiss'  # Vector store type (faiss, annoy, etc.)
+    # VECTOR_STORE_TYPE = 'faiss'  # Vector store type (faiss, annoy, etc.)
 
     # Retrieval settings
-    TOP_K_RETRIEVALS = 5  # Number of top relevant chunks to retrieve
+    # TOP_K_RETRIEVALS = 5  # Number of top relevant chunks to retrieve
 
     
     
     # Logging
-    LOGGING_LEVEL = 'INFO'  # Logging level (DEBUG, INFO, WARNING, ERROR)
+    # LOGGING_LEVEL = 'INFO'  # Logging level (DEBUG, INFO, WARNING, ERROR)
 
     @staticmethod
     def create_dirs():
