@@ -53,7 +53,7 @@ class Chain:
         # Display the response (answer to the user's question)
         answer=response["answer"]
         # clear deepseek thinking text 
-        clean_text = re.sub(r"<think>.*?</think>", "", answer)
+        clean_text = re.sub(r"<think>.*?</think>", "", answer,flags=re.DOTALL)
         st.write(clean_text)
         # info.write(" ")
         # Use an expander to show relevant document chunks for similarity search
