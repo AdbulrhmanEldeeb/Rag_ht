@@ -50,7 +50,10 @@ class Chain:
         print("Response time:", time.process_time() - start)
 
         # Display the response (answer to the user's question)
-        st.write(response["answer"])
+        answer=response["answer"]
+        # clear deepseek thinking text 
+        clean_text = re.sub(r"<think>.*?</think>", "", answer)
+        st.write(clean_text)
         # info.write(" ")
         # Use an expander to show relevant document chunks for similarity search
         with st.expander("Document Similarity Search"):
