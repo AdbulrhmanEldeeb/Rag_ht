@@ -10,7 +10,7 @@ class Config:
 
     # Model configurations
     EMBEDDING_MODEL_NAME = 'sentence-transformers/all-MiniLM-L6-v2'  # Embedding model name or path
-    LANGUAGE_MODEL_NAME = 'llama-3.1-70b-versatile'  # Name of the language model for generation
+    LANGUAGE_MODEL_NAME = 'deepseek-r1-distill-llama-70b'  # Name of the language model for generation
     
     # Embedding and retrieval settings
     CHUNK_SIZE = 1000  # Dimension of embeddings (depends on model)
